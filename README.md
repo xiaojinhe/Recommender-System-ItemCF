@@ -4,13 +4,13 @@
 In this project, I built a movie recommender system based on Item Collaborative Filtering using Apache Hadoop MapReduce in Java 
 
 ## Dataset
-The datasets can be downloaded from below:
+The datasets can be downloaded from below:  
 [MovieLens 100k dataset](https://grouplens.org/datasets/movielens/100k/)  
 [MovieLens 1m dataset](https://grouplens.org/datasets/movielens/1m/)
 
 The first dataset consists of:
-	* 100,000 ratings (1-5) from 943 users on 1682 movies. 
-	* Each user has rated at least 20 movies. 
+  * 100,000 ratings (1-5) from 943 users on 1682 movies. 
+  * Each user has rated at least 20 movies. 
   * Simple demographic info for the users (age, gender, occupation, zip)
 
 The second dataset consists of:
