@@ -5,7 +5,7 @@ In this project, I built a movie recommender system based on Item Collaborative 
 
 ## Dataset
 The datasets can be downloaded from below:
-[MovieLens 100k dataset](https://grouplens.org/datasets/movielens/100k/)
+[MovieLens 100k dataset](https://grouplens.org/datasets/movielens/100k/)  
 [MovieLens 1m dataset](https://grouplens.org/datasets/movielens/1m/)
 
 The first dataset consists of:
