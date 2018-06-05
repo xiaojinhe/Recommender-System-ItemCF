@@ -5,8 +5,8 @@ In this project, I built a movie recommender system based on Item Collaborative 
 
 ## Dataset
 The datasets can be downloaded from below:  
-[MovieLens 100k dataset](https://grouplens.org/datasets/movielens/100k/)  
-[MovieLens 1m dataset](https://grouplens.org/datasets/movielens/1m/)
+   [MovieLens 100k dataset](https://grouplens.org/datasets/movielens/100k/)  
+   [MovieLens 1m dataset](https://grouplens.org/datasets/movielens/1m/)
 
 The first dataset consists of:
   * 100,000 ratings (1-5) from 943 users on 1682 movies. 
@@ -17,7 +17,7 @@ The second dataset consists of:
   * 1,000,209 anonymous ratings of approximately 3,900 movies made by 6,040 MovieLens users.
 Detailed information can be found on above links.
 
-### Data preprocessing
+### Data Preprocessing
 Change the rating data format into the format of user,movie,rating
 
 ## Approach
@@ -30,7 +30,7 @@ Here I have followed the following steps to build the recommender system.
 5) Merge the multiplication results for each movie per user and normalize the sum-up result to get the rating predict.
 5) Generate topK recommendation list for each user.
 
-## To Execute the program:
+## To Execute the Program:
 1) Install Hadoop
 2) The raw data input format: user,movie,rating. 
 3) Put the raw dataset file into Hadoop hdfs
