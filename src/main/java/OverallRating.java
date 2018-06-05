@@ -36,18 +36,6 @@ public class OverallRating {
         }
     }
 
-    /*public static class UserRatingMapper extends Mapper<LongWritable, Text, Text, Text> {
-
-        @Override
-        public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            //input: user,movie,rating
-            String[] userMovieRatings = value.toString().trim().split(",");
-            String user = userMovieRatings[0];
-            String movie = userMovieRatings[1];
-            context.write(new Text(user + ":" + movie), new Text("seen"));
-        }
-    }*/
-
     /**
      * OverallRatingReducer sums up the subRatings, calculates the total relation, and normalizes the sum-up rating
      * with total relation to get the predicate.
@@ -74,9 +62,6 @@ public class OverallRating {
             double coOccurrenceSum = 0;
             double predicate;
             for (Text value : values) {
-                /*if (value.toString().trim().equals("seen")) {
-                    return;
-                }*/
                 String[] unitAndRelation = value.toString().trim().split(",");
                 double subRatingUnit = Double.parseDouble(unitAndRelation[0]);
                 int relation = Integer.parseInt(unitAndRelation[1]);
@@ -100,11 +85,7 @@ public class OverallRating {
 
         Job job = Job.getInstance(conf);
 
-        //ChainMapper.addMapper(job, SubRatingMapper.class, LongWritable.class, Text.class, Text.class, Text.class, conf);
-        //ChainMapper.addMapper(job, UserRatingMapper.class, Text.class, Text.class, Text.class, Text.class, conf);
         job.setMapperClass(SubRatingMapper.class);
-        //job.setMapperClass(UserRatingMapper.class);
-
         job.setReducerClass(OverallRatingReducer.class);
 
         job.setJarByClass(OverallRating.class);
@@ -114,8 +95,6 @@ public class OverallRating {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
 
-        //MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, SubRatingMapper.class);
-        //MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, UserRatingMapper.class);
         TextInputFormat.setInputPaths(job, new Path(args[0]));
         TextOutputFormat.setOutputPath(job, new Path(args[1]));
 
