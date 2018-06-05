@@ -1,6 +1,5 @@
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -11,14 +10,22 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import java.io.IOException;
 
+/**
+ * DataDividerByUser takes the input format: user,movie,rating, and re-format it into the output format:
+ * user \t movie1:rating1,movie2:rating2,movie3:rating3...
+ */
 public class DataDividerByUser {
+
+	/**
+	 * DataDividerMapper takes the input format: user,movie,rating, and divide the data by user.
+	 * InputValue: one line from input file
+	 * OutputKey: userID
+	 * OutputValue: movie:rating
+	 */
 	public static class DataDividerMapper extends Mapper<LongWritable, Text, Text, Text> {
 
-		// map method
 		@Override
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-			//input user,movie,rating
-			//divide data by user
 			String[] userMovieRating = value.toString().trim().split(",");
 			if (userMovieRating.length < 2) {
 				return;
@@ -28,8 +35,14 @@ public class DataDividerByUser {
 		}
 	}
 
+	/**
+	 * DataDividerReducer will merge all the movies and ratings for each user, and generate the re-format data
+	 * into a output file.
+	 * InputKey: userID; InputValue: all the movie-rating pairs for the userID
+	 * OutputKey: userID; OutputValue: movie1:rating1,movie2:rating2,movie3:rating3...
+	 */
 	public static class DataDividerReducer extends Reducer<Text, Text, Text, Text> {
-		// reduce method
+
 		@Override
 		public void reduce(Text key, Iterable<Text> values, Context context)
 				throws IOException, InterruptedException {

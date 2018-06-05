@@ -11,18 +11,35 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * TopKRecommenderListGenerator takes the movie predicate results for users as input, and computes the top k movie
+ * predicates for each user.
+ *
+ * input format: userID \t movie:predicate
+ * output format: outputKey: user; outputValue: top k movie predicates
+ */
 public class TopKRecommenderListGenerator {
 
+    /**
+     * TopKRecommenderListMapper parses the movie predicates for users into key-value pairs.
+     * outputKey: user
+     * outputValue: movie:predicate
+     */
     public static class TopKRecommenderListMapper extends Mapper<LongWritable, Text, Text, Text> {
 
         @Override
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            //input format: userID \t movie:predicate
+            //input format: user \t movie:predicate
             String[] tokens = value.toString().trim().split("\t");
             context.write(new Text(tokens[0]), new Text(tokens[1]));
         }
     }
 
+    /**
+     * TopKRecommenderListReducer takes in the k value from the argument (command line) or use the default value of 5.
+     * Each input value (movie1:predicate1) is wrapped into PredicateData object. The reducer uses a PriorityQueue to
+     * compute the top k movie predicates for each user.
+     */
     public static class TopKRecommenderListReducer extends Reducer<Text, Text, Text, Text> {
 
         private int k;

@@ -1,3 +1,6 @@
+/**
+ * PredicateData class is used to store movie and predicate for each movie, for topK recommender list
+ */
 class PredicateData implements Comparable<PredicateData> {
     private String movie;
     private double predicate;
