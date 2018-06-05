@@ -1,7 +1,7 @@
 /**
  * The Driver set up and run all the jobs for the Recommender System.
  *
- * It takes six arguments as input:
+ * It takes seven arguments as input:
  * 1) the directory of a raw dataset file -- rawInput
  * 2) the directory of re-format data that divided by user -- userMovieListOutputDir
  * 3) the directory of co-occurrence matrix -- coOccurrenceMatrixDir
